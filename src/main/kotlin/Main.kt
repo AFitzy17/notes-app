@@ -1,5 +1,4 @@
 import io.github.oshai.kotlinlogging.KotlinLogging
-import utils.readIntNotNull
 import utils.readNextInt
 import java.lang.System.exit
 
@@ -42,6 +41,7 @@ fun runMenu() {
 
 fun addNote(){
     logger.info { "addNote() function invoked" }
+
 }
 
 fun listNotes(){
