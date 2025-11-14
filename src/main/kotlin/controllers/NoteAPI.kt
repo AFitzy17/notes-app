@@ -82,6 +82,55 @@ class NoteAPI {
         }
         return numberOfActiveNotes
     }
+
+    fun numberOfNotesByPriority(priority: Int): Int {
+        var numberOfNotesByPriority = 0
+        for (note in notes) {
+            if (note.notePriority == priority) {
+                numberOfNotesByPriority++
+            }
+        }
+        return numberOfNotesByPriority
+    }
+
+    fun listNotesBySelectedPriority(priority: Int): String {
+        return if (numberOfNotesByPriority(priority) == 0) {
+            "No notes stored by selected priority"
+        } else {
+            var listOfNotesBySelectedPriority = ""
+            for (note in notes) {
+                if (note.notePriority == priority) {
+                    listOfNotesBySelectedPriority += "${notes.indexOf(note)}: $note \n"
+                }
+            }
+            listOfNotesBySelectedPriority
+        }
+    }
+
+    fun numberOfNotesByCategory(category: String): Int {
+        var numberOfNotesByCategory = 0
+        for (note in notes) {
+            if (note.noteCategory == category) {
+                numberOfNotesByCategory++
+            }
+        }
+        return numberOfNotesByCategory
+    }
+
+    fun listNotesBySelectedCategory(category: String): String {
+        return if (numberOfNotesByCategory(category) == 0) {
+            "No notes stored by selected category"
+        } else {
+            var listOfNotesBySelectedCategory = ""
+            for (note in notes) {
+                if (note.noteCategory == category) {
+                    listOfNotesBySelectedCategory += "${notes.indexOf(note)}: $note \n"
+                }
+            }
+            listOfNotesBySelectedCategory
+        }
+    }
+
 }
 
 

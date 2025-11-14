@@ -123,5 +123,43 @@ class NoteAPITest {
             assertFalse(archivedNotesString.contains("test app"))
             assertTrue(archivedNotesString.contains("swim"))
         }
+
+        @Test
+        fun `listNotesBySelectedPriority returns no notes by selected priority when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfNotesByPriority(priority=4))
+            assertTrue(
+                emptyNotes!!.listNotesBySelectedPriority(0).lowercase().contains("no notes stored by selected priority")
+            )
+        }
+
+        @Test
+        fun `listNotesBySelectedPriority returns notes by selected priority when ArrayList has notes stored`() {
+            assertEquals(2, populatedNotes!!.numberOfNotesByPriority(4))
+            val notesByPriorityString = populatedNotes!!.listNotesBySelectedPriority(4).lowercase()
+            assertFalse(notesByPriorityString.contains("learning kotlin"))
+            assertFalse(notesByPriorityString.contains("summer holiday"))
+            assertTrue(notesByPriorityString.contains("code app"))
+            assertTrue(notesByPriorityString.contains("test app"))
+            assertFalse(notesByPriorityString.contains("swim"))
+        }
+
+        @Test
+        fun `listNotesBySelectedCategory returns no notes by selected category when ArrayList has no notes stored`() {
+            assertEquals(0, emptyNotes!!.numberOfNotesByCategory(category = "Work"))
+            assertTrue(
+                emptyNotes!!.listNotesBySelectedCategory("Work").lowercase().contains("no notes stored by selected category")
+            )
+        }
+
+        @Test
+        fun `listNotesBySelectedCategory returns notes by selected category when ArrayList has notes stored`() {
+            assertEquals(2, populatedNotes!!.numberOfNotesByCategory("Work"))
+            val notesByCategoryString = populatedNotes!!.listNotesBySelectedCategory("Work").lowercase()
+            assertFalse(notesByCategoryString.contains("learning kotlin"))
+            assertFalse(notesByCategoryString.contains("summer holiday"))
+            assertTrue(notesByCategoryString.contains("code app"))
+            assertTrue(notesByCategoryString.contains("test app"))
+            assertFalse(notesByCategoryString.contains("swim"))
+        }
     }
 }
