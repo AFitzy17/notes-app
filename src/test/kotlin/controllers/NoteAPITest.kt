@@ -142,5 +142,24 @@ class NoteAPITest {
             assertTrue(notesByPriorityString.contains("test app"))
             assertFalse(notesByPriorityString.contains("swim"))
         }
+
+        @Test
+        fun `listNotesBySelectedCategory returns no notes by selected category when ArrayList has no notes stored`() {
+            assertEquals(0, emptyNotes!!.numberOfNotesByCategory(category = "Work"))
+            assertTrue(
+                emptyNotes!!.listNotesBySelectedCategory("Work").lowercase().contains("no notes stored by selected category")
+            )
+        }
+
+        @Test
+        fun `listNotesBySelectedCategory returns notes by selected category when ArrayList has notes stored`() {
+            assertEquals(2, populatedNotes!!.numberOfNotesByCategory("Work"))
+            val notesByCategoryString = populatedNotes!!.listNotesBySelectedCategory("Work").lowercase()
+            assertFalse(notesByCategoryString.contains("learning kotlin"))
+            assertFalse(notesByCategoryString.contains("summer holiday"))
+            assertTrue(notesByCategoryString.contains("code app"))
+            assertTrue(notesByCategoryString.contains("test app"))
+            assertFalse(notesByCategoryString.contains("swim"))
+        }
     }
 }
