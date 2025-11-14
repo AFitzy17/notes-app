@@ -5,9 +5,11 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+
 
 class NoteAPITest {
 
@@ -64,6 +66,26 @@ class NoteAPITest {
             assertTrue(emptyNotes!!.add(newNote))
             assertEquals(1, emptyNotes!!.numberOfNotes())
             assertEquals(newNote, emptyNotes!!.findNote(emptyNotes!!.numberOfNotes() - 1))
+        }
+    }
+
+    @Nested
+    inner class DeleteNotes {
+
+        @Test
+        fun `deleting a Note does not exist, returns null`() {
+            assertNull(emptyNotes!!.deleteNote(0))
+            assertNull(populatedNotes!!.deleteNote(-1))
+            assertNull(populatedNotes!!.deleteNote(5))
+        }
+
+        @Test
+        fun `deleting a note that exists deletes and returns deleted object`() {
+            assertEquals(5, populatedNotes!!.numberOfNotes())
+            assertEquals(swim, populatedNotes!!.deleteNote(4))
+            assertEquals(4, populatedNotes!!.numberOfNotes())
+            assertEquals(learnKotlin, populatedNotes!!.deleteNote(0))
+            assertEquals(3, populatedNotes!!.numberOfNotes())
         }
     }
 
