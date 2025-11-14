@@ -107,6 +107,30 @@ class NoteAPI {
         }
     }
 
+    fun numberOfNotesByCategory(category: String): Int {
+        var numberOfNotesByCategory = 0
+        for (note in notes) {
+            if (note.noteCategory == category) {
+                numberOfNotesByCategory++
+            }
+        }
+        return numberOfNotesByCategory
+    }
+
+    fun listNotesBySelectedCategory(category: String): String {
+        return if (numberOfNotesByCategory(category) == 0) {
+            "No notes stored by selected category"
+        } else {
+            var listOfNotesBySelectedCategory = ""
+            for (note in notes) {
+                if (note.noteCategory == category) {
+                    listOfNotesBySelectedCategory += "${notes.indexOf(note)}: $note \n"
+                }
+            }
+            listOfNotesBySelectedCategory
+        }
+    }
+
 }
 
 
