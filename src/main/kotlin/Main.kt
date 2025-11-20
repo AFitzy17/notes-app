@@ -22,7 +22,7 @@ fun mainMenu(): Int {
          > ----------------------------------
          > | NOTE MENU                      |
          > |   1) Add a note                |
-         > |   2) List all notes            |
+         > |   2) List notes                |
          > |   3) Update a note             |
          > |   4) Delete a note             |
          > |   5) Archive a note            |
@@ -33,7 +33,7 @@ fun mainMenu(): Int {
          > |   0) Exit                      |
          > ----------------------------------
          > ==>> """.trimMargin(">"))
-    return readNextInt(" > ===>>")
+    return readNextInt(" > ")
 }
 
 fun runMenu() {
@@ -48,7 +48,7 @@ fun runMenu() {
             6   -> save()
             7   -> load()
             0   -> exitApp()
-            else -> println("Invalid option entered: ${option}")
+            else -> println("Invalid option entered: $option")
         }
     } while (true)
 }
@@ -66,8 +66,41 @@ fun addNote(){
     }
 }
 
-fun listNotes(){
+
+
+fun listNotes() {
+    if (noteAPI.numberOfNotes() > 0) {
+        val option = readNextInt("""
+    > ---------------------------------
+    > | LIST MENU                     |
+    > ---------------------------------
+    > |     1) List all notes         |
+    > |     2) List active notes      |
+    > |     3) List archived notes    |
+    > ---------------------------------
+    > ==>> """.trimMargin(">"))
+
+        when (option) {
+            1   -> listAllNotes()
+            2   -> listActiveNotes()
+            3   -> listArchivedNotes()
+            else -> println("Invalid option entered: $option")
+        }
+    } else {
+        println("Invalid Option - No notes stored.")
+    }
+}
+
+fun listAllNotes() {
     println(noteAPI.listAllNotes())
+}
+
+fun listActiveNotes() {
+    println(noteAPI.listActiveNotes())
+}
+
+fun listArchivedNotes() {
+    println(noteAPI.listArchivedNotes())
 }
 
 fun updateNote(){
@@ -107,10 +140,6 @@ fun deleteNote(){
             println("Delete NOT Successful")
         }
     }
-}
-
-fun listActiveNotes() {
-    println(noteAPI.listActiveNotes())
 }
 
 fun archiveNote(){
