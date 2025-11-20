@@ -8,8 +8,8 @@ The Notes App is a menu driven console app. It currenty doesn't have any feature
 
 ## Features: ##
 
-- Skeleton Menu Items for Adding, Listing, Updating and Deleting a Note. No Note model is added yet
-- Logging capabilities via Kotlin-Logging dependency
 - UserInput Utility to support robust console IO
-- Listing for active and archived notes
+- Listing for all, active and archived notes
 - Listing for notes by specific category or priority
+- CRUD functions for notes
+- Saving and loading of notes via JSON.
