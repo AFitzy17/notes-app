@@ -1,16 +1,28 @@
 package controllers
 
 import models.Note
+import persistence.Serializer
 
-class NoteAPI {
+class NoteAPI(serializerType: Serializer) {
     private var notes = ArrayList<Note>()
+    private var serializer: Serializer = serializerType
+
+    @Throws(Exception::class)
+    fun load() {
+        notes = serializer.read() as ArrayList<Note>
+    }
+
+    @Throws
+    fun store() {
+        serializer.write(notes)
+    }
 
     fun add(note: Note): Boolean {
         return notes.add(note)
     }
 
     fun isValidIndex(index: Int): Boolean{
-        return isValidListIndex(index, notes);
+        return isValidListIndex(index, notes)
     }
 
     fun updateNote(indexToUpdate: Int, note: Note?): Boolean {
